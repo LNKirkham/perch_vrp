@@ -36,7 +36,7 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] - %(name)s - %(message)s',
     datefmt='%d-%b-%Y %H:%M:%S',
     handlers=[
-        logging.FileHandler(FILEPATHS['log']),  # Outputs to log file
+        # logging.FileHandler(FILEPATHS['log']),  # Outputs to log file
         logging.StreamHandler()  # Outputs to terminal
     ]
 )

@@ -29,13 +29,14 @@ REPO:
 
 """
 
-
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 from distance_matrix import create_distance_matrix
 from filepaths import FILEPATHS
 from collection_point import canababes
+import logging
+logger = logging.getLogger(__name__)
 
 
 def create_data(basic_locations_df):
@@ -65,6 +66,8 @@ def prepare_ingested_data(collection_point_df, delivery_points_df, dispatch_crew
 def ingest_inputs():
     """Gets the three data inputs as data frames: collection point, delivery points and dispatcher points"""
 
+    logger.info('Ingesting inputs')
+
     # Read delivery points from csv
     delivery_points_df = pd.read_csv(FILEPATHS['delivery_points'], index_col=False)
 
@@ -78,13 +81,9 @@ def ingest_inputs():
 
 
 
-
-
-
-
 def main():
 
-    print('Running main.py')
+    logger.info('Running main()')
 
     delivery_points_df, collection_point_df, dispatch_crew_df = ingest_inputs()
 
@@ -95,6 +94,8 @@ def main():
     distance_matrix = create_distance_matrix(data)
 
     print(distance_matrix)
+
+    logger.info('Finished running main()')
 
 if __name__ == '__main__':
     # Main execution of the pipeline

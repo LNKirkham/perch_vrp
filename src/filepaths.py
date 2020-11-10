@@ -36,6 +36,7 @@ DIRECTORIES = {
 FILEPATHS = {
     'credentials': os.path.join(DIRECTORIES['data'], 'credentials.yml'),
     'delivery_points': os.path.join(DIRECTORIES['data'], '10_random_addresses.csv'),
-    'dispatchers': os.path.join(DIRECTORIES['data'], 'dispatch_crew.csv')
+    'dispatchers': os.path.join(DIRECTORIES['data'], 'dispatch_crew.csv'),
+    'log': os.path.join(DIRECTORIES['data'], 'app.log'),
 }
 

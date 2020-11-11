@@ -95,6 +95,12 @@ def main():
 
     print(distance_matrix)
 
+    distance_matrix_df = pd.DataFrame(distance_matrix)
+
+    print(distance_matrix_df)
+
+    distance_matrix_df.to_csv(FILEPATHS['distance_matrix'])
+
     logger.info('Finished running main()')
 
 if __name__ == '__main__':

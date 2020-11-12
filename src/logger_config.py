@@ -26,8 +26,10 @@ REPO:
     https://github.com/LNKirkham/perch_vrp
 
 """
+
 from filepaths import FILEPATHS
 import logging
+import logger_config
 logger = logging.getLogger(__name__)
 
 

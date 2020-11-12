@@ -33,6 +33,13 @@ import urllib.request
 from config import API_KEY
 
 
+def create_data(basic_locations_df):
+    """Creates the data for the distance matrix API."""
+    data = {}
+    data['addresses'] = list(basic_locations_df['api_address'])
+    return data
+
+
 def send_request(origin_addresses, dest_addresses, API_key):
     """ Build and send request for the given origin and destination addresses."""
 
@@ -105,3 +112,7 @@ def create_distance_matrix(data):
         distance_matrix += build_distance_matrix(response)
 
         return distance_matrix
+
+if __name__ == '__main__':
+
+    main()

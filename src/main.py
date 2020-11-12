@@ -48,6 +48,6 @@ def main():
 
     logger.info('Finished running main()')
 
+
 if __name__ == '__main__':
-    # Main execution of the pipeline
     main()

@@ -31,17 +31,29 @@ from __future__ import print_function
 import json
 import urllib.request
 from config import API_KEY
+import pandas as pd
+from filepaths import FILEPATHS
+import logging
+import logger_config
+logger = logging.getLogger(__name__)
 
 
 def create_data(basic_locations_df):
-    """Creates the data for the distance matrix API."""
+    """
+    Creates the data for the distance matrix API.
+    """
+    logger.info('Running: create_data()')
+
     data = {}
     data['addresses'] = list(basic_locations_df['api_address'])
     return data
 
 
 def send_request(origin_addresses, dest_addresses, API_key):
-    """ Build and send request for the given origin and destination addresses."""
+    """
+    Build and send request for the given origin and destination addresses.
+    """
+    logger.info('Running: send_request()')
 
     def build_address_str(addresses):
         # Build a pipe-separated string of addresses
@@ -66,8 +78,11 @@ def send_request(origin_addresses, dest_addresses, API_key):
 
 
 def build_distance_matrix(response):
-    """Creates a distance matrix from the api responses
     """
+    Creates a distance matrix from the api responses
+    """
+    logger.info('Running: build_distance_matrix()')
+
     distance_matrix = []
 
     for row in response['rows']:
@@ -84,6 +99,8 @@ def create_distance_matrix(data):
     :param data: data dicionary
     :return: a list per location contaiing the distance to every other location (list of lists)
     """
+
+    logger.info('Running: create_distance_matrix()')
 
     addresses = data["addresses"]
 
@@ -113,6 +130,34 @@ def create_distance_matrix(data):
 
         return distance_matrix
 
-if __name__ == '__main__':
+def run_distance_matrix(selected_locations_df, request_new=True):
+    """
+    Generates a new distance matrix or reads in one that has previously been created.
+    :param selected_locations_df: dataframe of all location points to consider
+    :param request_new: Boolean value of True to create new, False to read in previously created
+    :return: distance matrix as list of lists
+    """
+    logger.info('Running: run_distance_matrix()')
 
-    main()
+    if request_new:
+        logger.info('Creating new distance matrix')
+        data = create_data(selected_locations_df)
+        distance_matrix = create_distance_matrix(data)
+        # Convert to dataframe and save as csv
+        distance_matrix_df = pd.DataFrame(distance_matrix)
+        distance_matrix_df.to_csv(FILEPATHS['distance_matrix'], index=False)
+
+    else:
+        logger.info('Reading in distance matrix already created')
+        distance_matrix_df = pd.read_csv(FILEPATHS['distance_matrix'], index_col=False)
+        # Convert to list of lists
+        distance_matrix = distance_matrix_df.values.tolist()
+
+    print(distance_matrix)
+    return distance_matrix
+
+
+
+if __name__ == '__main__':
+    selected_locations_df = pd.read_csv(FILEPATHS['selected_locations'], index_col=False)
+    run_distance_matrix(selected_locations_df, request_new=False)

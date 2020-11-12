@@ -39,5 +39,6 @@ FILEPATHS = {
     'dispatchers': os.path.join(DIRECTORIES['data'], 'dispatch_crew.csv'),
     'log': os.path.join(DIRECTORIES['data'], 'app.log'),
     'distance_matrix': os.path.join(DIRECTORIES['data'], 'distance_matrix.csv'),
+    'selected_locations': os.path.join(DIRECTORIES['data'], 'selected_locations.csv')
 }
 

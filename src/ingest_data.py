@@ -74,18 +74,22 @@ def ingest_inputs():
     return delivery_points_df, collection_point_df, dispatch_crew_df
 
 
-def run_ingest_data():
+def run_ingest_data(create_new=True):
 
     logger.info('Running: run_ingest_data()')
 
-    delivery_points_df, collection_point_df, dispatch_crew_df = ingest_inputs()
+    if create_new:
+        logger.info('Creating new inputs')
+        delivery_points_df, collection_point_df, dispatch_crew_df = ingest_inputs()
+        selected_locations_df = prepare_ingested_data(collection_point_df, delivery_points_df, dispatch_crew_df)
+        selected_locations_df.to_csv(FILEPATHS['selected_locations'], index=False)
 
-    selected_locations_df = prepare_ingested_data(collection_point_df, delivery_points_df, dispatch_crew_df)
+    else:
+        logger.info('Reading in inputs already created')
+        selected_locations_df = pd.read_csv(FILEPATHS['selected_locations'], index_col=False)
 
-    print(selected_locations_df)
     return selected_locations_df
 
 
 if __name__ == '__main__':
-    # Main execution of the pipeline
-    run_ingest_data()
+    run_ingest_data(create_new=False)

@@ -31,29 +31,20 @@ REPO:
 
 import pandas as pd
 from ingest_data import run_ingest_data
-from distance_matrix import create_data, create_distance_matrix
+from distance_matrix import run_distance_matrix
 from filepaths import FILEPATHS
-
 import logging
 import logger_config
 logger = logging.getLogger(__name__)
-
 
 
 def main():
 
     logger.info('Running: main()')
 
-    selected_locations_df = run_ingest_data()
+    selected_locations_df = run_ingest_data(create_new=False)
 
-
-    data = create_data(selected_locations_df)
-
-    distance_matrix = create_distance_matrix(data)
-
-    distance_matrix_df = pd.DataFrame(distance_matrix)
-
-    distance_matrix_df.to_csv(FILEPATHS['distance_matrix'])
+    distance_matrix_df = run_distance_matrix(selected_locations_df, request_new=False)
 
     logger.info('Finished running main()')
 

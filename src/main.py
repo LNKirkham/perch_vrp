@@ -32,6 +32,7 @@ REPO:
 import pandas as pd
 from ingest_data import run_ingest_data
 from distance_matrix import run_distance_matrix
+from routing import run_routing
 from filepaths import FILEPATHS
 import logging
 import logger_config
@@ -42,9 +43,11 @@ def main():
 
     logger.info('Running: main()')
 
-    selected_locations_df = run_ingest_data(create_new=False)
+    selected_locations_df, dispatch_crew_df = run_ingest_data(create_new=False)
 
-    distance_matrix_df = run_distance_matrix(selected_locations_df, request_new=False)
+    distance_matrix = run_distance_matrix(selected_locations_df, request_new=False)
+
+    solution = run_routing(distance_matrix, dispatch_crew_df)
 
     logger.info('Finished running main()')
 

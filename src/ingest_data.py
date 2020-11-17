@@ -87,9 +87,10 @@ def run_ingest_data(create_new=True):
     else:
         logger.info('Reading in inputs already created')
         selected_locations_df = pd.read_csv(FILEPATHS['selected_locations'], index_col=False)
+        dispatch_crew_df = pd.read_csv(FILEPATHS['dispatchers'], index_col=False)
 
-    return selected_locations_df
+    return selected_locations_df, dispatch_crew_df
 
 
 if __name__ == '__main__':
-    run_ingest_data(create_new=False)
+    selected_locations_df, dispatch_crew_df = run_ingest_data(create_new=False)

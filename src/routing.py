@@ -132,13 +132,13 @@ def run_routing(distance_matrix, dispatch_crew_df):
     if solution:
         print_solution(data, manager, routing, solution)
 
+        return solution
+
 
 if __name__ == '__main__':
 
     distance_matrix_df = pd.read_csv(FILEPATHS['distance_matrix'], index_col=False)
     distance_matrix = distance_matrix_df.values.tolist()
-
     dispatch_crew_df = pd.read_csv(FILEPATHS['dispatchers'], index_col=False)
-
-    run_routing(distance_matrix, dispatch_crew_df)
+    solution = run_routing(distance_matrix, dispatch_crew_df)
 

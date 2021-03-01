@@ -30,12 +30,12 @@ import os
 
 
 DIRECTORIES = {
-    'data': '/Users/louisekirkham/Documents/my_projects/perch_vrp/data'
+    'data': '/Users/louisekirkham/Documents/personal/perch_vrp/data'
 }
 
 FILEPATHS = {
     'credentials': os.path.join(DIRECTORIES['data'], 'credentials.yml'),
-    'delivery_points': os.path.join(DIRECTORIES['data'], '10_random_addresses.csv'),
+    'delivery_points': os.path.join(DIRECTORIES['data'], '10_random_delivery_points.csv'),
     'dispatchers': os.path.join(DIRECTORIES['data'], 'dispatch_crew.csv'),
     'log': os.path.join(DIRECTORIES['data'], 'app.log'),
     'distance_matrix': os.path.join(DIRECTORIES['data'], 'distance_matrix.csv'),

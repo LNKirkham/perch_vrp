@@ -29,6 +29,7 @@ REPO:
 import pandas as pd
 from collection_point import canababes
 from filepaths import FILEPATHS
+import src.column_names as cn
 import logging
 import logger_config
 logger = logging.getLogger(__name__)
@@ -63,13 +64,19 @@ def ingest_inputs():
     logger.info('Running: ingest_inputs()')
 
     # Read delivery points from csv
-    delivery_points_df = pd.read_csv(FILEPATHS['delivery_points'], index_col=False)
+    delivery_points_df = pd.read_csv(FILEPATHS['delivery_points'], index_col=False,
+                                     dtype={cn.ID_NUM: 'str', cn.NAME: 'str', cn.ADDRESS: 'str', cn.POSTCODE: 'str',
+                                            cn.LAT: 'float64', cn.LONG: 'float64'}
+                                     )
 
     # Get collection point form collection point class module
     collection_point_df = pd.DataFrame.from_records([s.to_dict() for s in [canababes]])
 
     # Get dispatcher points from csv
-    dispatch_crew_df = pd.read_csv(FILEPATHS['dispatchers'], index_col=False)
+    dispatch_crew_df = pd.read_csv(FILEPATHS['dispatchers'], index_col=False,
+                                   dtype={cn.ID_NUM: 'str', cn.NAME: 'str', cn.ADDRESS: 'str', cn.POSTCODE: 'str',
+                                          cn.LAT: 'float64', cn.LONG: 'float64'}
+                                   )
 
     return delivery_points_df, collection_point_df, dispatch_crew_df
 

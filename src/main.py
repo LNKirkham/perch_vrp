@@ -43,9 +43,9 @@ def main():
 
     logger.info('Running: main()')
 
-    selected_locations_df, dispatch_crew_df = run_ingest_data(create_new=False)
+    selected_locations_df, dispatch_crew_df = run_ingest_data(create_new=True)
 
-    distance_matrix = run_distance_matrix(selected_locations_df, request_new=False)
+    distance_matrix = run_distance_matrix(selected_locations_df, request_new=True)
 
     selected_locations_solution_df = run_routing(distance_matrix, dispatch_crew_df, selected_locations_df,
                                                  create_new=True)

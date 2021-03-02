@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a51e151d-884a-44b5-a27d-5a4d28ecaefe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/column_names.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/perch_vrp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/perch_vrp.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/filepaths.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/filepaths.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ingest_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ingest_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

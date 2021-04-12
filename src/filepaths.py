@@ -28,19 +28,24 @@ REPO:
 
 import os
 
+local_data_path = '/Users/louisekirkham/Documents/personal/perch_vrp/data'
+
 
 DIRECTORIES = {
-    'data': '/Users/louisekirkham/Documents/personal/perch_vrp/data'
+    'input': os.path.join(local_data_path, 'input'),
+    'logs': os.path.join(local_data_path, 'logs'),
+    'interim': os.path.join(local_data_path, 'interim'),
+    'output': os.path.join(local_data_path, 'output'),
 }
 
 FILEPATHS = {
-    'credentials': os.path.join(DIRECTORIES['data'], 'credentials.yml'),
-    'delivery_points': os.path.join(DIRECTORIES['data'], '10_random_delivery_points.csv'),
-    'dispatchers': os.path.join(DIRECTORIES['data'], 'dispatch_crew.csv'),
-    'log': os.path.join(DIRECTORIES['data'], 'app.log'),
-    'distance_matrix': os.path.join(DIRECTORIES['data'], 'distance_matrix.csv'),
-    'selected_locations': os.path.join(DIRECTORIES['data'], 'selected_locations.csv'),
-    'selected_locations_solution': os.path.join(DIRECTORIES['data'], 'selected_locations_solution.csv')
+    'credentials': os.path.join(DIRECTORIES['input'], 'credentials.yml'),
+    'delivery_points': os.path.join(DIRECTORIES['input'], '10_random_delivery_points.csv'),
+    'dispatchers': os.path.join(DIRECTORIES['input'], 'dispatch_crew.csv'),
+    'log': os.path.join(DIRECTORIES['logs'], 'app.log'),
+    'distance_matrix': os.path.join(DIRECTORIES['interim'], 'distance_matrix.csv'),
+    'selected_locations': os.path.join(DIRECTORIES['interim'], 'selected_locations.csv'),
+    'selected_locations_solution': os.path.join(DIRECTORIES['output'], 'selected_locations_solution.csv')
 
 }
 

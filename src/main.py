@@ -50,6 +50,7 @@ def main():
     selected_locations_solution_df = run_routing(distance_matrix, dispatch_crew_df, selected_locations_df,
                                                  create_new=True)
 
+
     logger.info('Finished running main()')
 
 

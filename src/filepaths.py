@@ -45,7 +45,7 @@ FILEPATHS = {
     'log': os.path.join(DIRECTORIES['logs'], 'app.log'),
     'distance_matrix': os.path.join(DIRECTORIES['interim'], 'distance_matrix.csv'),
     'selected_locations': os.path.join(DIRECTORIES['interim'], 'selected_locations.csv'),
-    'selected_locations_solution': os.path.join(DIRECTORIES['output'], 'selected_locations_solution.csv')
-
+    'selected_locations_solution': os.path.join(DIRECTORIES['output'], 'selected_locations_solution.csv'),
+    'solution_plot': os.path.join(DIRECTORIES['output'], 'solution_plot.html'),
 }
 

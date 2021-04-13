@@ -96,8 +96,8 @@ def run_ingest_data(create_new=True):
         selected_locations_df = pd.read_csv(FILEPATHS['selected_locations'], index_col=False)
         dispatch_crew_df = pd.read_csv(FILEPATHS['dispatchers'], index_col=False)
 
-    return selected_locations_df, dispatch_crew_df
+    return selected_locations_df, dispatch_crew_df, delivery_points_df
 
 
 if __name__ == '__main__':
-    selected_locations_df, dispatch_crew_df = run_ingest_data(create_new=False)
+    selected_locations_df, dispatch_crew_df, delivery_points_df = run_ingest_data(create_new=False)

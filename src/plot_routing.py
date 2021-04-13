@@ -38,10 +38,10 @@ def plot_routing_solution(delivery_points_df, collection_point_df, selected_loca
 
     my_mapbox_access_token = 'pk.eyJ1IjoibG91aXNla2lya2hhbSIsImEiOiJjazYxMGJrZDcwOTdzM3RxaXQ4NG1jZHVlIn0.NeE7I8fu5zglEoeFc_eirQ'
 
-    fig_2 = go.Figure()
+    fig = go.Figure()
 
     # Map layout
-    fig_2.update_layout(
+    fig.update_layout(
         autosize=True,
         hovermode='closest',
         mapbox=dict(
@@ -58,7 +58,7 @@ def plot_routing_solution(delivery_points_df, collection_point_df, selected_loca
         route_df = pd.concat([collection_point_df, route_df]).reset_index(drop=True)
 
         # Add route to map
-        fig_2.add_trace(go.Scattermapbox(
+        fig.add_trace(go.Scattermapbox(
             lat=route_df['latitude'],
             lon=route_df['longitude'],
             mode='lines+markers',
@@ -71,11 +71,9 @@ def plot_routing_solution(delivery_points_df, collection_point_df, selected_loca
             name='Route ' + str(route_num)
         ))
 
-    fig_2.show()
+    fig.show()
 
-    # fig_2 = px.scatter(x=range(10), y=range(10))
-    # fig_2.write_html("file.html")
-
+    fig.write_html(FILEPATHS['solution_plot'])
 
 
 if __name__ == '__main__':

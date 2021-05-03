@@ -29,12 +29,13 @@ REPO:
 import yaml
 from filepaths import FILEPATHS
 
+RUN = {
+    'INGEST_NEW_INPUTS': False,
+    'DISTANCE_MATRIX': True,
+    'ROUTING': False,
+    'PLOT_SOLUTION': False,
+}
 
-# with open(FILEPATHS['credentials']) as file:
-#     # The FullLoader parameter handles the conversion from YAML scalar values to Python the dictionary format
-#     credentials = yaml.load(file,Loader=yaml.FullLoader)
-#
-# API_KEY = credentials['api_key']
 
 API_KEY = yaml.load(open('/Users/louisekirkham/Documents/personal/perch_vrp/data/credentials.yml'))
 # API_KEY = credentials['api_key']

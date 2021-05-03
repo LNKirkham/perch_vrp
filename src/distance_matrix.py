@@ -55,10 +55,12 @@ def send_request(origin_addresses, dest_addresses, API_key):
     """
     logger.info('Running: send_request()')
 
+    # dest_addresses = ['25 Coniston Walk, London, E9 6EP']
+    # origin_addresses = ['33 Lancaster Avenue, LOndon SE27 9EL']
+
     def build_address_str(addresses):
         # Build a pipe-separated string of addresses
         address_str = ''
-
         for i in range(len(addresses) - 1):
             address_str += addresses[i] + '|'
         address_str += addresses[-1]
@@ -69,7 +71,8 @@ def send_request(origin_addresses, dest_addresses, API_key):
     dest_address_str = build_address_str(dest_addresses)
 
     request = request + '&origins=' + origin_address_str + '&destinations=' + \
-              dest_address_str + '&key=' + API_KEY
+              dest_address_str + '&key=' + API_key
+
 
     jsonResult = urllib.request.urlopen(request).read()
     response = json.loads(jsonResult)
@@ -130,34 +133,26 @@ def create_distance_matrix(data):
 
         return distance_matrix
 
-def run_distance_matrix(selected_locations_df, request_new=True):
+def run_distance_matrix(selected_locations_df):
     """
-    Generates a new distance matrix or reads in one that has previously been created.
+    Generates a new distance matrix.
     :param selected_locations_df: dataframe of all location points to consider
     :param request_new: Boolean value of True to create new, False to read in previously created
     :return: distance matrix as list of lists
     """
     logger.info('Running: run_distance_matrix()')
 
-    if request_new:
-        logger.info('Creating new distance matrix')
-        data = create_data(selected_locations_df)
-        distance_matrix = create_distance_matrix(data)
-        # Convert to dataframe and save as csv
-        distance_matrix_df = pd.DataFrame(distance_matrix)
-        distance_matrix_df.to_csv(FILEPATHS['distance_matrix'], index=False)
+    data = create_data(selected_locations_df)
+    distance_matrix = create_distance_matrix(data)
 
-    else:
-        logger.info('Reading in distance matrix already created')
-        distance_matrix_df = pd.read_csv(FILEPATHS['distance_matrix'], index_col=False)
-        # Convert to list of lists
-        distance_matrix = distance_matrix_df.values.tolist()
+    # Convert to dataframe and save as csv
+    distance_matrix_df = pd.DataFrame(distance_matrix)
+    distance_matrix_df.to_csv(FILEPATHS['distance_matrix'], index=False)
 
-    print(distance_matrix)
     return distance_matrix
 
 
 
 if __name__ == '__main__':
     selected_locations_df = pd.read_csv(FILEPATHS['selected_locations'], index_col=False)
-    run_distance_matrix(selected_locations_df, request_new=False)
+    run_distance_matrix(selected_locations_df)

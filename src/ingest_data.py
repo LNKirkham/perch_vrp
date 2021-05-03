@@ -81,23 +81,16 @@ def ingest_inputs():
     return delivery_points_df, collection_point_df, dispatch_crew_df
 
 
-def run_ingest_data(create_new=True):
+def run_ingest_data():
 
     logger.info('Running: run_ingest_data()')
 
-    if create_new:
-        logger.info('Creating new inputs')
-        delivery_points_df, collection_point_df, dispatch_crew_df = ingest_inputs()
-        selected_locations_df = prepare_ingested_data(collection_point_df, delivery_points_df, dispatch_crew_df)
-        selected_locations_df.to_csv(FILEPATHS['selected_locations'], index=False)
-
-    else:
-        logger.info('Reading in inputs already created')
-        selected_locations_df = pd.read_csv(FILEPATHS['selected_locations'], index_col=False)
-        dispatch_crew_df = pd.read_csv(FILEPATHS['dispatchers'], index_col=False)
+    delivery_points_df, collection_point_df, dispatch_crew_df = ingest_inputs()
+    selected_locations_df = prepare_ingested_data(collection_point_df, delivery_points_df, dispatch_crew_df)
+    selected_locations_df.to_csv(FILEPATHS['selected_locations'], index=False)
 
     return selected_locations_df, dispatch_crew_df, delivery_points_df
 
 
 if __name__ == '__main__':
-    selected_locations_df, dispatch_crew_df, delivery_points_df = run_ingest_data(create_new=False)
+    selected_locations_df, dispatch_crew_df, delivery_points_df = run_ingest_data()

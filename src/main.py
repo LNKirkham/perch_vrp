@@ -19,7 +19,8 @@ RUNNING:
     $ python main.py
 
 LAST EDITED:
-    2020-11-09  Created - Louise
+    2020-11-09  Created
+    2020-04-03  Imported and using config.RUN
 
 CONTACT:
     Louise Kirkham <louisek@gmail.com.com>
@@ -63,7 +64,6 @@ def main():
         # Convert to list of lists
         distance_matrix = distance_matrix_df.values.tolist()
 
-
     if RUN['ROUTING']:
         logger.info('Creating new inputs')
         selected_locations_solution_df = run_routing(distance_matrix, dispatch_crew_df, selected_locations_df)
@@ -71,11 +71,9 @@ def main():
         logger.info('Reading in inputs already created')
         selected_locations_solution_df = pd.read_csv(FILEPATHS['selected_locations_solution'], index_col=False)
 
-
     if RUN['PLOT_SOLUTION']:
         collection_point_df = pd.DataFrame.from_records([s.to_dict() for s in [canababes]])
         plot_routing_solution(delivery_points_df, collection_point_df, selected_locations_solution_df)
-
 
     logger.info('Finished running main()')
 

@@ -30,6 +30,7 @@ import os
 
 local_data_path = '/Users/louisekirkham/Documents/personal/perch_vrp/data'
 
+local_api_key = os.path.join(local_data_path, 'credentials.yml')
 
 DIRECTORIES = {
     'input': os.path.join(local_data_path, 'input'),

@@ -16,7 +16,8 @@ DEPENDENCIES:
     None
 
 LAST EDITED:
-    2020-11-09  Created - Louise
+    2020-11-09  Created
+    2020-04-03  Added RUN
 
 CONTACT:
     Louise Kirkham <louisek@gmail.com.com>
@@ -27,7 +28,7 @@ REPO:
 """
 
 import yaml
-from filepaths import FILEPATHS
+from filepaths import FILEPATHS, local_api_key
 
 RUN = {
     'INGEST_NEW_INPUTS': True,
@@ -37,5 +38,6 @@ RUN = {
 }
 
 
-API_KEY = yaml.load(open('/Users/louisekirkham/Documents/personal/perch_vrp/data/credentials.yml'))
+
+API_KEY = yaml.load(open(local_api_key))
 # API_KEY = credentials['api_key']

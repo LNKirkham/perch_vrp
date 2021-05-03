@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/distance_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/distance_matrix.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/filepaths.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/filepaths.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/routing.py" afterDir="false" />
     </list>
@@ -103,6 +104,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/data/input/20_random_delivery_points.csv" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/data/input" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
   </component>

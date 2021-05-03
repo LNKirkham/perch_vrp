@@ -156,73 +156,66 @@ def add_routes_to_df(selected_locations_df, routes_without_collection_point):
     return selected_locations_df
 
 
-def run_routing(distance_matrix, dispatch_crew_df, selected_locations_df, create_new):
+def run_routing(distance_matrix, dispatch_crew_df, selected_locations_df):
 
     logger.info('Running: run_routing()')
 
-    if create_new:
-        logger.info('Creating new inputs')
+    # Create the data object for the model
+    data = create_data_model(distance_matrix, dispatch_crew_df)
 
-        # Create the data object for the model
-        data = create_data_model(distance_matrix, dispatch_crew_df)
+    # Create the routing index manager.
+    manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
+                                           data['num_vehicles'], data['depot'])
 
-        # Create the routing index manager.
-        manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
-                                               data['num_vehicles'], data['depot'])
+    # Create Routing Model.
+    routing = pywrapcp.RoutingModel(manager)
 
-        # Create Routing Model.
-        routing = pywrapcp.RoutingModel(manager)
+    # Create and register a transit callback.
+    def distance_callback(from_index, to_index):
+        """Returns the distance between the two nodes."""
 
-        # Create and register a transit callback.
-        def distance_callback(from_index, to_index):
-            """Returns the distance between the two nodes."""
+        # Convert from routing variable Index to distance matrix NodeIndex.
+        from_node = manager.IndexToNode(from_index)
+        to_node = manager.IndexToNode(to_index)
 
-            # Convert from routing variable Index to distance matrix NodeIndex.
-            from_node = manager.IndexToNode(from_index)
-            to_node = manager.IndexToNode(to_index)
+        return data['distance_matrix'][from_node][to_node]
 
-            return data['distance_matrix'][from_node][to_node]
+    transit_callback_index = routing.RegisterTransitCallback(distance_callback)
 
-        transit_callback_index = routing.RegisterTransitCallback(distance_callback)
+    # Define cost of each arc.
+    routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
-        # Define cost of each arc.
-        routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
+    # Add Distance constraint.
+    dimension_name = 'Distance'
+    routing.AddDimension(
+        transit_callback_index,
+        0,  # no slack
+        3000000,  # vehicle maximum travel distance
+        True,  # start cumul to zero
+        dimension_name)
+    distance_dimension = routing.GetDimensionOrDie(dimension_name)
+    distance_dimension.SetGlobalSpanCostCoefficient(100)
 
-        # Add Distance constraint.
-        dimension_name = 'Distance'
-        routing.AddDimension(
-            transit_callback_index,
-            0,  # no slack
-            3000000,  # vehicle maximum travel distance
-            True,  # start cumul to zero
-            dimension_name)
-        distance_dimension = routing.GetDimensionOrDie(dimension_name)
-        distance_dimension.SetGlobalSpanCostCoefficient(100)
+    # Setting first solution heuristic.
+    search_parameters = pywrapcp.DefaultRoutingSearchParameters()
+    search_parameters.first_solution_strategy = (
+        routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
 
-        # Setting first solution heuristic.
-        search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-        search_parameters.first_solution_strategy = (
-            routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
+    # Solve the problem.
+    solution = routing.SolveWithParameters(search_parameters)
 
-        # Solve the problem.
-        solution = routing.SolveWithParameters(search_parameters)
+    # Print solution on console.
+    if solution:
+        # print_solution(data, manager, routing, solution)
 
-        # Print solution on console.
-        if solution:
-            # print_solution(data, manager, routing, solution)
+        # Create array of routes from solution
+        routes_without_collection_point = process_routes_from_solution(solution, routing, manager)
+        print(routes_without_collection_point)
 
-            # Create array of routes from solution
-            routes_without_collection_point = process_routes_from_solution(solution, routing, manager)
-            print(routes_without_collection_point)
+        # Add route and order of collection point to collection
+        selected_locations_solution_df = add_routes_to_df(selected_locations_df, routes_without_collection_point)
 
-            # Add route and order of collection point to collection
-            selected_locations_solution_df = add_routes_to_df(selected_locations_df, routes_without_collection_point)
-
-            selected_locations_solution_df.to_csv(FILEPATHS['selected_locations_solution'], index=False)
-
-    else:
-        logger.info('Reading in inputs already created')
-        selected_locations_solution_df = pd.read_csv(FILEPATHS['selected_locations_solution'], index_col=False)
+        selected_locations_solution_df.to_csv(FILEPATHS['selected_locations_solution'], index=False)
 
     print(selected_locations_solution_df)
     return selected_locations_solution_df
@@ -235,6 +228,5 @@ if __name__ == '__main__':
     dispatch_crew_df = pd.read_csv(FILEPATHS['dispatchers'], index_col=False)
     selected_locations_df = pd.read_csv(FILEPATHS['selected_locations'], index_col=False)
 
-    selected_locations_solution_df = run_routing(distance_matrix, dispatch_crew_df, selected_locations_df,
-                                                 create_new=False)
+    selected_locations_solution_df = run_routing(distance_matrix, dispatch_crew_df, selected_locations_df)
 

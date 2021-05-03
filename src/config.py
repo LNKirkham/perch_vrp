@@ -30,10 +30,10 @@ import yaml
 from filepaths import FILEPATHS
 
 RUN = {
-    'INGEST_NEW_INPUTS': False,
+    'INGEST_NEW_INPUTS': True,
     'DISTANCE_MATRIX': True,
-    'ROUTING': False,
-    'PLOT_SOLUTION': False,
+    'ROUTING': True,
+    'PLOT_SOLUTION': True,
 }
 
 

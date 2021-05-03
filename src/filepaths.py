@@ -40,7 +40,7 @@ DIRECTORIES = {
 
 FILEPATHS = {
     'credentials': os.path.join(DIRECTORIES['input'], 'credentials.yml'),
-    'delivery_points': os.path.join(DIRECTORIES['input'], '10_random_delivery_points.csv'),
+    'delivery_points': os.path.join(DIRECTORIES['input'], '20_random_delivery_points.csv'),
     'dispatchers': os.path.join(DIRECTORIES['input'], 'dispatch_crew.csv'),
     'log': os.path.join(DIRECTORIES['logs'], 'app.log'),
     'distance_matrix': os.path.join(DIRECTORIES['interim'], 'distance_matrix.csv'),

@@ -65,12 +65,17 @@ def main():
 
 
     if RUN['ROUTING']:
-        selected_locations_solution_df = run_routing(distance_matrix, dispatch_crew_df, selected_locations_df,
-                                                 create_new=True)
+        logger.info('Creating new inputs')
+        selected_locations_solution_df = run_routing(distance_matrix, dispatch_crew_df, selected_locations_df)
+    else:
+        logger.info('Reading in inputs already created')
+        selected_locations_solution_df = pd.read_csv(FILEPATHS['selected_locations_solution'], index_col=False)
+
 
     if RUN['PLOT_SOLUTION']:
         collection_point_df = pd.DataFrame.from_records([s.to_dict() for s in [canababes]])
         plot_routing_solution(delivery_points_df, collection_point_df, selected_locations_solution_df)
+
 
     logger.info('Finished running main()')
 

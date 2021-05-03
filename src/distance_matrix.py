@@ -135,7 +135,7 @@ def create_distance_matrix(data):
 
 def run_distance_matrix(selected_locations_df):
     """
-    Generates a new distance matrix.
+    Generates a new distance matrix R.
     :param selected_locations_df: dataframe of all location points to consider
     :param request_new: Boolean value of True to create new, False to read in previously created
     :return: distance matrix as list of lists
